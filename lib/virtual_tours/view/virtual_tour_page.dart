@@ -5,6 +5,9 @@ class VirtualToursPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const VirtualToursScreen();
+    return BlocProvider(
+      create: (context) => VirtualToursCubit(),
+      child: const VirtualToursScreen(),
+    );
   }
 }
