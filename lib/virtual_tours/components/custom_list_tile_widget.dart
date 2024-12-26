@@ -1,11 +1,11 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/asset_icon.dart';
+import 'package:common/widgets/asset_icon.dart';
+import 'package:common/widgets/custom_list_tile.dart';
 import 'package:virtual_tours_bloc/virtual_tours/components/custom_color_container.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile.dart';
 
-class HomeProfileListTileWidget extends StatelessWidget {
-  const HomeProfileListTileWidget({
+class CustomListTileWidget extends StatelessWidget {
+  const CustomListTileWidget({
     super.key,
     this.icon,
     this.title,

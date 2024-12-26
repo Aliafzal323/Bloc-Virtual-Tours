@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
+import 'package:common/widgets/custom_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile.dart';
 
 class CustomInkWell extends StatelessWidget {
   const CustomInkWell({

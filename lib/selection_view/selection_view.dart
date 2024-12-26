@@ -46,7 +46,7 @@ class VideoPlayerWidget extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const VideoPlayerPage()));
       },
-      child: const HomeProfileListTileWidget(
+      child: const CustomListTlieWidget(
         title: 'Video Player Page',
         subTitle: 'Click to play video player ',
         icon: AssetIcons.video,
@@ -67,7 +67,7 @@ class VirtualToursWidget extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const VirtualToursPage()));
       },
-      child: const HomeProfileListTileWidget(
+      child: const CustomListTlieWidget(
         title: 'Virtual Tours Page',
         subTitle: 'Click to view virtual Tours',
         icon: AssetIcons.virtual_tour,

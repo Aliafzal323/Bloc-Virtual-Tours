@@ -1,3 +1,4 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
 class CustomCircleContainer extends StatelessWidget {
@@ -14,9 +15,9 @@ class CustomCircleContainer extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.greenAccent,
+        color: context.primary500,
       ),
       child: Center(
         child: Text(
