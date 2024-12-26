@@ -14,6 +14,13 @@ class VirtualToursScreen extends StatelessWidget {
           previous.virtualTours != current.virtualTours,
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(
+              'Virtual Tours',
+              style: context.twenty700,
+            ),
+          ),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -23,13 +30,9 @@ class VirtualToursScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         'Virtual Tours',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: context.twenty600,
                       ),
                       const SizedBox(
                         width: 20,
@@ -46,7 +49,7 @@ class VirtualToursScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 30,
                   ),
                   Column(
                     children: [

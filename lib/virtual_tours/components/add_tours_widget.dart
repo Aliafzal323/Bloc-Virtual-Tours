@@ -1,3 +1,4 @@
+import 'package:common/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_tours_bloc/virtual_tours/cubit/virtual_tours_cubit.dart';
@@ -17,10 +18,10 @@ class AddMoreToursWidget extends StatelessWidget {
           onTap: () {
             context.read<VirtualToursCubit>().propertyVirtualTours();
           },
-          child: const Text(
+          child: Text(
             '+ Add More',
             style: TextStyle(
-              color: Colors.greenAccent,
+              color: context.primary500,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
