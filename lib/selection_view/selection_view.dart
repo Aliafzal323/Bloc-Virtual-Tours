@@ -1,8 +1,8 @@
 import 'package:common/constants/asset_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_tours_bloc/video_player/view/video_player_page.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/home_profile_list_tile_widget.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/ink_well.dart';
+import 'package:common/widgets/ink_well.dart';
+import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile_widget.dart';
 import 'package:virtual_tours_bloc/virtual_tours/view/view.dart';
 
 class SelectionScreen extends StatelessWidget {
@@ -46,7 +46,7 @@ class VideoPlayerWidget extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const VideoPlayerPage()));
       },
-      child: const CustomListTlieWidget(
+      child: const CustomListTileWidget(
         title: 'Video Player Page',
         subTitle: 'Click to play video player ',
         icon: AssetIcons.video,
@@ -67,7 +67,7 @@ class VirtualToursWidget extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const VirtualToursPage()));
       },
-      child: const CustomListTlieWidget(
+      child: const CustomListTileWidget(
         title: 'Virtual Tours Page',
         subTitle: 'Click to view virtual Tours',
         icon: AssetIcons.virtual_tour,
