@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:common/constants/asset_icons.dart';
 import 'package:common/theme/theme.dart';
 import 'package:common/widgets/asset_icon.dart';
@@ -9,20 +11,20 @@ import 'package:virtual_tours_bloc/video_player/Media_cubit/add_media_state.dart
 import 'package:virtual_tours_bloc/virtual_tours/components/custom_color_container.dart';
 
 // PropertyVideoScreen.dart
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({
+class PropertyVideoScreen extends StatefulWidget {
+  const PropertyVideoScreen({
     super.key,
-    this.videoPath,
+    required this.videoPath,
   });
 
-  final String? videoPath;
+  final String videoPath;
   // final List<String> videos;
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<PropertyVideoScreen> createState() => _PropertyVideoScreenState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _PropertyVideoScreenState extends State<PropertyVideoScreen> {
   VideoPlayerController? videoController;
   bool _initialized = false;
   bool _disposed = false;
@@ -45,8 +47,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     final cubit = context.read<AddMediaCubit>();
     cubit.playVideo(index);
     final controller = VideoPlayerController.networkUrl(
-        Uri.parse(cubit.state.videoList[index]));
-
+      Uri.parse(cubit.state.videoList[index]),
+    );
     videoController?.dispose();
     videoController = controller;
 

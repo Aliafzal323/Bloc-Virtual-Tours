@@ -10,7 +10,7 @@ class VideoPlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddMediaCubit(),
-      child: const VideoPlayerScreen(
+      child: const PropertyVideoScreen(
           videoPath:
               'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'),
     );
