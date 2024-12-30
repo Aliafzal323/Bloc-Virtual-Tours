@@ -16,9 +16,7 @@ class PaginationPage extends StatelessWidget {
         paginationRepository: PaginationRepoImpl(
           httpClient: context.read<HttpClient>(),
         ),
-      )..getLatestListings(
-          context,
-        ),
+      )..getLatestListings(0),
       child: const PaginationScreen(),
     );
   }

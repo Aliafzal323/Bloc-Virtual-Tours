@@ -13,7 +13,44 @@ class PaginationCubit extends Cubit<PaginationState> {
   }) : super(const PaginationState());
 
   final PaginationRepository paginationRepository;
-  Future<ListingsModel> getLatestListings(BuildContext context) async {
+
+  final ScrollController scrollController = ScrollController();
+
+  void initializeScrollListener() {
+    scrollController.addListener(() {
+      final isAtBottom = scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent;
+      if (isAtBottom && state.listings.length < state.total) {
+        _loadMoreData();
+      }
+    });
+  }
+
+  Future<void> _loadMoreData() async {
+    if (state.listings.length < state.total) {
+      emit(state.copyWith(
+          latestListingsDataState: state.latestListingsDataState.toLoading()));
+
+      try {
+        final newData = await getLatestListings(state.listings.length);
+
+        emit(state.copyWith(
+          total: state.total,
+          latestListingsDataState: state.latestListingsDataState.toLoaded(
+            data: newData,
+          ),
+        ));
+      } catch (error) {
+        emit(state.copyWith(
+          latestListingsDataState: state.latestListingsDataState.toFailure(
+            error: error.toString(),
+          ),
+        ));
+      }
+    }
+  }
+
+  Future<ListingsModel> getLatestListings(int skip) async {
     emit(
       state.copyWith(
         latestListingsDataState: state.latestListingsDataState.toLoading(),
@@ -21,7 +58,7 @@ class PaginationCubit extends Cubit<PaginationState> {
     );
 
     try {
-      final listings = await paginationRepository.getLatestListings();
+      final listings = await paginationRepository.getLatestListings(skip);
       emit(
         state.copyWith(
           total: listings.total,

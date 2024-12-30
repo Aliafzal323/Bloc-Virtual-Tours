@@ -18,7 +18,9 @@ class PaginationState extends Equatable {
         total,
       ];
 
-  List get listings => latestListingsDataState.data?.listings ?? [];
+  List<DataListModel> get listings =>
+      latestListingsDataState.data?.listings ?? [];
+  int get skip => latestListingsDataState.data?.listings?.length ?? 0;
 
   PaginationState copyWith({
     LatestListingsDataState? latestListingsDataState,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,83 +12,65 @@ class PaginationScreen extends StatefulWidget {
 }
 
 class _PaginationScreenState extends State<PaginationScreen> {
-  final ScrollController _controller = ScrollController();
-
-  int totalProducts = 1000;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller.addListener(() {
-      loadMoreData();
-    });
-  }
+    final paginationCubit = BlocProvider.of<PaginationCubit>(context);
 
-  Future<void> loadMoreData() async {
-    if (_controller.position.pixels == _controller.position.maxScrollExtent &&
-        BlocProvider.of<PaginationCubit>(context).state.listings.length <
-            BlocProvider.of<PaginationCubit>(context).state.total) {
-      BlocProvider.of<PaginationCubit>(context).getLatestListings(
-        context,
-      );
-    }
+    paginationCubit.initializeScrollListener();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Pagination Screen'),
-        ),
-        body: BlocBuilder<PaginationCubit, PaginationState>(
-          buildWhen: (previous, current) =>
-              previous.latestListingsDataState !=
-              current.latestListingsDataState,
-          builder: (context, state) {
-            // if (state.latestListingsDataState.isLoading) {
-            //   return const Center(child: CircularProgressIndicator());
-            // }
-            final lists = state.latestListingsDataState.data;
-            log('${state.latestListingsDataState.data}');
+    final paginationCubit = context.read<PaginationCubit>();
+    paginationCubit.initializeScrollListener();
 
-            return ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              shrinkWrap: false,
-              itemCount: lists?.listings?.length ?? 0,
-              controller: _controller,
-              itemBuilder: (context, index) {
-                final listLength = lists?.listings?.length ?? 0;
-                return Column(
-                  children: [
-                    ListTile(
-                      leading:
-                          Text(lists?.listings?[index].id.toString() ?? ''),
-                      title:
-                          Text(lists?.listings?[index].title.toString() ?? ''),
-                      subtitle: Text(
-                        '\$${lists?.listings?[index].price.toString() ?? ''}',
-                      ),
-                      trailing: NetworkImageWidget(
-                        imageUrl:
-                            lists?.listings?[index].thumbnail.toString() ?? '',
-                        width: 100,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pagination Screen'),
+      ),
+      body: BlocBuilder<PaginationCubit, PaginationState>(
+        buildWhen: (previous, current) =>
+            previous.latestListingsDataState != current.latestListingsDataState,
+        builder: (context, state) {
+          final lists = state.latestListingsDataState.data;
+
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: paginationCubit.scrollController,
+            itemCount: lists?.listings?.length ?? 0,
+            itemBuilder: (context, index) {
+              final listLength = lists?.listings?.length ?? 0;
+              return Column(
+                children: [
+                  ListTile(
+                    leading: Text(lists?.listings?[index].id.toString() ?? ''),
+                    title: Text(lists?.listings?[index].title.toString() ?? ''),
+                    subtitle: Text(
+                      '\$${lists?.listings?[index].price.toString() ?? ''}',
+                    ),
+                    trailing: NetworkImageWidget(
+                      imageUrl:
+                          lists?.listings?[index].thumbnail.toString() ?? '',
+                      width: 100,
+                    ),
+                  ),
+                  if (index == listLength - 1 &&
+                      state.latestListingsDataState.isLoading)
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: SpinKitChasingDots(
+                        size: 30,
+                        color: Colors.green,
                       ),
                     ),
-                    if (index == listLength - 1 &&
-                        state.latestListingsDataState.isLoading)
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SpinKitChasingDots(
-                          size: 30,
-                          color: Colors.green,
-                        ),
-                      ),
-                  ],
-                );
-              },
-            );
-          },
-        ));
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }
