@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/ink_well.dart';
+import 'package:common/widgets/ink_well.dart';
 
 class CustomHorizontalListView extends StatelessWidget {
   const CustomHorizontalListView({
