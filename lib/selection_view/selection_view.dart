@@ -1,5 +1,6 @@
 import 'package:common/constants/asset_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_tours_bloc/pagination/view/pagination_page.dart';
 import 'package:virtual_tours_bloc/video_player/view/video_player_page.dart';
 import 'package:common/widgets/ink_well.dart';
 import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile_widget.dart';
@@ -27,6 +28,7 @@ class SelectionScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            PaginationPageWidget(),
           ],
         ),
       ),
@@ -70,6 +72,27 @@ class VirtualToursWidget extends StatelessWidget {
       child: const CustomListTileWidget(
         title: 'Virtual Tours Page',
         subTitle: 'Click to view virtual Tours',
+        icon: AssetIcons.virtual_tour,
+      ),
+    );
+  }
+}
+
+class PaginationPageWidget extends StatelessWidget {
+  const PaginationPageWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomInkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const PaginationPage()));
+      },
+      child: const CustomListTileWidget(
+        title: 'Pagination Page',
+        subTitle: 'Click to view pagination of list',
         icon: AssetIcons.virtual_tour,
       ),
     );
