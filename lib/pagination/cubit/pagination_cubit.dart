@@ -10,55 +10,40 @@ part 'pagination_state.dart';
 class PaginationCubit extends Cubit<PaginationState> {
   PaginationCubit({
     required this.paginationRepository,
-  }) : super(const PaginationState());
+  }) : super(const PaginationState()) {
+    initializeScrollListener();
+  }
 
   final PaginationRepository paginationRepository;
-
   final ScrollController scrollController = ScrollController();
 
   void initializeScrollListener() {
     scrollController.addListener(() {
-      final isAtBottom = scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent;
-      if (isAtBottom && state.listings.length < state.total) {
-        _loadMoreData();
+      if (_isAtBottom() &&
+          !_isLoadingMore() &&
+          state.listings.length < state.total) {
+        _loadMoreData(limit: 10, skip: state.listings.length);
       }
     });
   }
 
-  Future<void> _loadMoreData() async {
-    if (state.listings.length < state.total) {
-      emit(state.copyWith(
-          latestListingsDataState: state.latestListingsDataState.toLoading()));
-
-      try {
-        final newData = await getLatestListings(state.listings.length);
-
-        emit(state.copyWith(
-          total: state.total,
-          latestListingsDataState: state.latestListingsDataState.toLoaded(
-            data: newData,
-          ),
-        ));
-      } catch (error) {
-        emit(state.copyWith(
-          latestListingsDataState: state.latestListingsDataState.toFailure(
-            error: error.toString(),
-          ),
-        ));
-      }
-    }
+  bool _isAtBottom() {
+    return scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent;
   }
 
-  Future<ListingsModel> getLatestListings(int skip) async {
-    emit(
-      state.copyWith(
-        latestListingsDataState: state.latestListingsDataState.toLoading(),
-      ),
-    );
+  bool _isLoadingMore() {
+    return state.isScrollLoading || state.latestListingsDataState.isLoading;
+  }
 
+  Future<void> fetchInitialListings({
+    required int limit,
+    required int skip,
+  }) async {
+    emit(state.copyWith(latestListingsDataState: const DataState.loading()));
     try {
-      final listings = await paginationRepository.getLatestListings(skip);
+      final listings =
+          await paginationRepository.getLatestListings(limit, skip);
       emit(
         state.copyWith(
           total: listings.total,
@@ -66,15 +51,43 @@ class PaginationCubit extends Cubit<PaginationState> {
               state.latestListingsDataState.toLoaded(data: listings),
         ),
       );
-      return listings;
     } catch (error) {
       emit(
         state.copyWith(
           latestListingsDataState:
-              state.latestListingsDataState.toFailure(error: error),
+              state.latestListingsDataState.toFailure(error: error.toString()),
         ),
       );
-      rethrow;
+    }
+  }
+
+  Future<void> _loadMoreData({required int limit, required int skip}) async {
+    emit(state.copyWith(isScrollLoading: true));
+    try {
+      final newData = await paginationRepository.getLatestListings(
+          limit, state.listings.length);
+
+      final mergedListings = ListingsModel(
+        listings: [...state.listings, ...newData.listings ?? []],
+        total: state.total,
+      );
+
+      emit(
+        state.copyWith(
+          latestListingsDataState:
+              state.latestListingsDataState.toLoaded(data: mergedListings),
+          isScrollLoading: false,
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          isScrollLoading: false,
+          latestListingsDataState: state.latestListingsDataState.toFailure(
+            error: error.toString(),
+          ),
+        ),
+      );
     }
   }
 }
