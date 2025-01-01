@@ -11,12 +11,10 @@ class PaginationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy: false,
       create: (context) => PaginationCubit(
-        paginationRepository: PaginationRepoImpl(
-          httpClient: context.read<HttpClient>(),
-        ),
-      )..getLatestListings(0),
+          paginationRepository:
+              PaginationRepoImpl(httpClient: context.read<HttpClient>()))
+        ..fetchInitialListings(limit: 10, skip: 0),
       child: const PaginationScreen(),
     );
   }

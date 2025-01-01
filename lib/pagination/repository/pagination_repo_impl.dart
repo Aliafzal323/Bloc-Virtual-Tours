@@ -6,10 +6,10 @@ class PaginationRepoImpl implements PaginationRepository {
   final HttpClient httpClient;
 
   @override
-  Future<ListingsModel> getLatestListings(int skip) {
+  Future<ListingsModel> getLatestListings(int limit, int skip) {
     return httpClient
         .get<JsonObject>(
-      path: ApiEndPoints.fetchListings(skip),
+      path: ApiEndPoints.fetchListings(limit, skip),
     )
         .then(
       (json) {

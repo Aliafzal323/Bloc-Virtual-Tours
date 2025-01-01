@@ -6,16 +6,19 @@ typedef LatestListingsDataState = DataState<ListingsModel>;
 class PaginationState extends Equatable {
   const PaginationState({
     this.latestListingsDataState = const DataState(),
-    this.total = 1000,
+    this.total = 0,
+    this.isScrollLoading = false,
   });
 
   final LatestListingsDataState latestListingsDataState;
   final int total;
+  final bool isScrollLoading;
 
   @override
   List<Object> get props => [
         latestListingsDataState,
         total,
+        isScrollLoading,
       ];
 
   List<DataListModel> get listings =>
@@ -25,11 +28,13 @@ class PaginationState extends Equatable {
   PaginationState copyWith({
     LatestListingsDataState? latestListingsDataState,
     int? total,
+    bool? isScrollLoading,
   }) {
     return PaginationState(
       latestListingsDataState:
           latestListingsDataState ?? this.latestListingsDataState,
       total: total ?? this.total,
+      isScrollLoading: isScrollLoading ?? this.isScrollLoading,
     );
   }
 }

@@ -6,5 +6,5 @@ import 'package:virtual_tours_bloc/pagination/repository/Model/data_list_model.d
 part 'pagination_repo_impl.dart';
 
 abstract class PaginationRepository {
-  Future<ListingsModel> getLatestListings(int skip);
+  Future<ListingsModel> getLatestListings(int limit, int skip);
 }
