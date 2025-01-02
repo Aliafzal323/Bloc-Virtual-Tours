@@ -1,6 +1,6 @@
 import 'package:common/constants/asset_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_tours_bloc/pagination/view/pagination_page.dart';
+import 'package:virtual_tours_bloc/pagination/view/view.dart';
 import 'package:virtual_tours_bloc/video_player/view/video_player_page.dart';
 import 'package:common/widgets/ink_well.dart';
 import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile_widget.dart';

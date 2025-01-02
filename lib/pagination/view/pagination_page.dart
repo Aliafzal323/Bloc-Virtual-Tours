@@ -1,9 +1,4 @@
-import 'package:common/http/http_client.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_tours_bloc/pagination/cubit/pagination_cubit.dart';
-import 'package:virtual_tours_bloc/pagination/repository/pagination_repository.dart';
-import 'package:virtual_tours_bloc/pagination/view/pagination_view.dart';
+part of 'view.dart';
 
 class PaginationPage extends StatelessWidget {
   const PaginationPage({super.key});
