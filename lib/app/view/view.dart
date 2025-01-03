@@ -3,7 +3,7 @@ import 'package:common/http/http_client.dart';
 import 'package:common/http/http_client_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_tours_bloc/selection_view/selection_page.dart';
+import 'package:virtual_tours_bloc/selection_view/view/view.dart';
 
 part 'app_providers.dart';
 part 'app_view.dart';
