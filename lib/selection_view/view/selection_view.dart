@@ -1,10 +1,4 @@
-import 'package:common/constants/asset_icons.dart';
-import 'package:flutter/material.dart';
-import 'package:virtual_tours_bloc/pagination/view/view.dart';
-import 'package:virtual_tours_bloc/video_player/view/video_player_page.dart';
-import 'package:common/widgets/ink_well.dart';
-import 'package:virtual_tours_bloc/virtual_tours/components/custom_list_tile_widget.dart';
-import 'package:virtual_tours_bloc/virtual_tours/view/view.dart';
+part of 'view.dart';
 
 class SelectionScreen extends StatelessWidget {
   const SelectionScreen({super.key});
@@ -20,15 +14,15 @@ class SelectionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            VirtualToursWidget(),
+            _VirtualToursWidget(),
             SizedBox(
               height: 20,
             ),
-            VideoPlayerWidget(),
+            _VideoPlayerWidget(),
             SizedBox(
               height: 20,
             ),
-            PaginationPageWidget(),
+            _PaginationPageWidget(),
           ],
         ),
       ),
@@ -36,10 +30,8 @@ class SelectionScreen extends StatelessWidget {
   }
 }
 
-class VideoPlayerWidget extends StatelessWidget {
-  const VideoPlayerWidget({
-    super.key,
-  });
+class _VideoPlayerWidget extends StatelessWidget {
+  const _VideoPlayerWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +49,8 @@ class VideoPlayerWidget extends StatelessWidget {
   }
 }
 
-class VirtualToursWidget extends StatelessWidget {
-  const VirtualToursWidget({
-    super.key,
-  });
+class _VirtualToursWidget extends StatelessWidget {
+  const _VirtualToursWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +68,8 @@ class VirtualToursWidget extends StatelessWidget {
   }
 }
 
-class PaginationPageWidget extends StatelessWidget {
-  const PaginationPageWidget({
-    super.key,
-  });
+class _PaginationPageWidget extends StatelessWidget {
+  const _PaginationPageWidget();
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_tours_bloc/video_player/Media_cubit/add_media_cubit.dart';
-import 'package:virtual_tours_bloc/video_player/view/video_player_view.dart';
+part of 'view.dart';
 
 class VideoPlayerPage extends StatelessWidget {
   const VideoPlayerPage({super.key});

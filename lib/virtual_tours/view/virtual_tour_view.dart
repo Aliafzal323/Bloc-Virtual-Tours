@@ -114,8 +114,8 @@ Widget _buildToursView(BuildContext context, VirtualToursState state) {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute<PanoramaView>(
-                              builder: (context) => PanoramaView(
+                            MaterialPageRoute<_PanoramaView>(
+                              builder: (context) => _PanoramaView(
                                 tourPaths: state.virtualTours[index],
                               ),
                             ),
@@ -137,8 +137,8 @@ Widget _buildToursView(BuildContext context, VirtualToursState state) {
   );
 }
 
-class PanoramaView extends StatelessWidget {
-  const PanoramaView({super.key, required this.tourPaths});
+class _PanoramaView extends StatelessWidget {
+  const _PanoramaView({super.key, required this.tourPaths});
   final String tourPaths;
 
   @override
